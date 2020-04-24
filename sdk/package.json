@@ -1,0 +1,11 @@
+{
+  "name": "sdk",
+  "version": "1.0.0",
+  "description": "SDK",
+  "scripts": {
+    "start": "webpack-dev-server --config ./config/webpack.dev.config.js",
+  },
+  "devDependencies": {
+    
+  }
+}

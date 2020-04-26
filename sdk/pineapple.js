@@ -43,8 +43,7 @@
     var ERROR_IMAGE = 4
     var ERROR_AUDIO = 5
     var ERROR_VIDEO = 6
-    var ERROR_CONSOLE = 7
-    var ERROR_TRY_CATHC = 8
+    var ERROR_PROMISE = 7
     var LOAD_ERROR_TYPE = {
         SCRIPT: ERROR_SCRIPT,
         LINK: ERROR_STYLE,
@@ -53,41 +52,42 @@
         VIDEO: ERROR_VIDEO
     };
     /**
-     * 错误数据处理
+     * 上报错误
      * @param  {Object} errorLog    错误日志
      */
     function handleError (errorLog) {
-        console.log(errorLog);
+        // console.log(errorLog);
+        pineapple.sendError(errorLog);
     }
 	/**
 	 * 监控资源异常
-	 * https://github.com/BetterJS/badjs-report
-	 * @param {String}  msg         错误信息
-	 * @param {String}  url         出错文件的URL
-	 * @param {Long}    line        出错代码的行号
-	 * @param {Long}    col         出错代码的列号
-	 * @param {Object}  error       错误信息Object https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Error
+     * https://github.com/BetterJS/badjs-report
 	 */
     window.addEventListener("error", function(event) {
-        // 过滤 target 为 window 的异常，避免与上面的 onerror 重复
         var errorTarget = event.target
+        // 过滤 target 为 window 的异常
         if (errorTarget !== window && errorTarget.nodeName && LOAD_ERROR_TYPE[errorTarget.nodeName.toUpperCase()]) {
             handleError(formatLoadError(errorTarget))
         } else {
-            console.log(event)
             handleError(formatRuntimerError(event.message, event.filename, event.lineno, event.colno, event.error))
         }
     }, true);
     /**
 	 * 监控未处理的Promise错误
+     * 当 Promise 被 reject 且没有 reject 处理器时触发
 	 */
     window.addEventListener("unhandledrejection", function(event) {
-        handleError(event);
+        // console.log('Unhandled Rejection at:', event.promise, 'reason:', event.reason);
+        handleError({
+            type: ERROR_PROMISE,
+            desc: event.reason,
+            stack: 'no stack'
+        });
     }, true);
     /**
      * 生成 laod 错误日志
+     * 需要加载资源的元素
      * @param  {Object} errorTarget
-     * @return {Object}
      */
     function formatLoadError (errorTarget) {
         return {
@@ -98,38 +98,20 @@
     }
     /**
      * 生成 runtime 错误日志
-     * @param  {String} message 错误信息
-     * @param  {String} source  发生错误的脚本 URL
-     * @param  {Number} lineno  发生错误的行号
-     * @param  {Number} colno   发生错误的列号
-     * @param  {Object} error   error 对象
-     * @return {Object}
+     * @param {String}  message      错误信息
+     * @param {String}  filename     出错文件的URL
+     * @param {Long}    lineno       出错代码的行号
+     * @param {Long}    colno        出错代码的列号
+     * @param {Object}  error        错误信息Object
+     * https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Error
      */
-    function formatRuntimerError (message, source, lineno, colno, error) {
+    function formatRuntimerError (message, filename, lineno, colno, error) {
         return {
             type: ERROR_RUNTIME,
-            desc: message + ' at ' + source + ':' + lineno + ':' + colno,
-            stack: error && error.stack ? error.stack : 'no stack'      // IE <9, has no error stack
+            desc: message + ' at ' + filename + ':' + lineno + ':' + colno,
+            stack: error && error.stack ? error.stack.replace(/\n/gi, "") : 'no stack'      // IE <9, has no error stack
         };
     }
-
-// 	window.onerror = function(msg, url, line, col, error) {
-// 		var newMsg = msg;
-// 		if (error && error.stack) {
-// 			var stack = error.stack.replace(/\n/gi, "").split(/\bat\b/).slice(0, 9).join("@").replace(/\?[^:]+/gi, "");
-// 	        var msg = error.toString();
-// 	        if (stack.indexOf(msg) < 0) {
-// 	            stack = msg + "@" + stack;
-// 	        }
-//             newMsg = stack;
-//         }
-// //		if (Object.prototype.toString.call(newMsg) === "[object Event]") {
-// //          newMsg += newMsg.type ? ("--" + newMsg.type + "--" + (newMsg.target ? (newMsg.target.tagName + "::" + newMsg.target.src) : "")) : "";
-// //      }
-        
-// 		var obj = {msg:newMsg, target:url, rowNum:line, colNum:col};
-// 		alert(obj.msg);
-// 	};
 	
 	/**
 	 * ajax监控
@@ -172,7 +154,7 @@
 		
 		var _send = req.send;
 		req.send = function(data) {
-			req.ajax.start = pineapple.now();      //埋点
+			req.ajax.start = pineapple.now();   //埋点
 			var bytes = 0;                      //发送数据大小
 			if(data) {
 				req.ajax.startBytes = _kb(JSON.stringify(data).length * 2 );
@@ -237,7 +219,8 @@
 	window.addEventListener('load', function() {
 		setTimeout(function() {
 			var time = pineapple.getTimes();
-			var data = { ajaxs:pineapple.ajaxs, dpi:pineapple.dpi(), time:time };
+            var data = { ajaxs:pineapple.ajaxs, dpi:pineapple.dpi(), time:time, network:pineapple.network() };
+            console.log("data", data);
 			pineapple.send(data);
 		}, 500);
 	});
@@ -318,8 +301,8 @@
 			/**
 			 * 用户可操作时间
 			 */
-			api.domReadyTime = timing.domContentLoadedEventEnd - timing.fetchstart;
-			
+			api.domReadyTime = timing.domContentLoadedEventEnd - timing.fetchStart;
+
 			/**
 			 * 首屏时间
 			 * 用户在没有滚动时候看到的内容渲染完成并且可以交互的时间
@@ -328,7 +311,7 @@
 			if(imgLoadTime == 0) {
 				api.firstScreen = api.domReadyTime;
 			}else {
-				api.firstScreen = imgLoadTime - timing.fetchstart;
+				api.firstScreen = imgLoadTime - timing.fetchStart;
 			}
 
 			/**
@@ -455,14 +438,17 @@
 	 */
 	pineapple.network = function() {
 		//2.2--4.3安卓机才可使用
-		var connection = window.navigator.connection || window.navigator.mozConnection || window.navigator.webkitConnection;
+        var connection = window.navigator.connection || window.navigator.mozConnection || window.navigator.webkitConnection,
+            effectiveType = connection.effectiveType;
+        if(effectiveType) {
+            return {bandwidth: null, type: effectiveType.toUpperCase()};
+        }
 		var types = "Unknown Ethernet WIFI 2G 3G 4G".split(" ");
-		var network = {bandwidth:null, type:null}
+        var info = {bandwidth: null, type: null};
 		if(connection && connection.type) {
-			network.type = types[connection.type];
+			info.type = types[connection.type];
 		}
-		
-		return network;
+		return info;
 	};
 	
 	/**
@@ -490,6 +476,15 @@
 			var img = new Image(0, 0);
     		img.src = pineapple.param.src +"?" + _paramify(data) + "&ts=" + ts;
 		}
+    };
+    
+    /**
+	 * 推送错误信息
+	 */
+	pineapple.sendError = function(data) {
+		var ts = new Date().getTime().toString();
+		var img = new Image(0, 0);
+    	img.src = pineapple.param.src +"?error=" + JSON.stringify(data) + "&ts=" + ts;
 	};
 	
 	var currentTime = Date.now();       //这个脚本执行完后的时间 计算白屏时间

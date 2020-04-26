@@ -47,7 +47,7 @@
 | requestTime | 内容加载完成的时间 |
 | requestDocumentTime | 请求文档时间，开始请求文档到开始接收文档 |
 | responseDocumentTime | 接收文档时间，开始接收文档到文档接收完成 |
-| TTFB（Time To First Byte） | 读取页面第一个字节的时间 |
+| TTFB | （Time To First Byte），读取页面第一个字节的时间 |
 
 ## Ajax指标说明
 | 指标     | 描述   |

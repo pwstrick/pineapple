@@ -23,7 +23,7 @@
 		//可自定义的参数
 		param: {
 			rate: 0.5,              //随机采样率
-			src: 'http://www.pwstrick.com/upload/avatar.png'                 //请求发送数据
+			src: 'http://10.10.28.139:3000/pa.gif'                 //请求发送数据
 		}
 	};
 	

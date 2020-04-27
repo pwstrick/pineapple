@@ -1,9 +1,10 @@
 // db/index.js
-const mongoose = require('./db')
+const mongoose = require('./db');
 
 class Mongodb {
     constructor (name, schema) { 
-        this.model = mongoose.model(name, schema);
+        const mySchema = new mongoose.Schema(schema);    //声明结构
+        this.model = mongoose.model(name, mySchema);
     }
     //保存
     save (obj) {
@@ -32,8 +33,5 @@ class Mongodb {
         });
     }
 }
-module.exports = {
-    model: Mongodb,
-    mongoose: mongoose
-} ;
+module.exports = Mongodb;
 

@@ -8,6 +8,7 @@
     "prd": "cross-env NODE_ENV=production pm2 start bin/www"
   },
   "dependencies": {
+    "acorn": "^7.1.1",
     "cross-env": "^7.0.2",
     "debug": "^4.1.1",
     "koa": "^2.7.0",

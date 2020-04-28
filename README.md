@@ -1,5 +1,5 @@
 # 菠萝监控系统
-![logo](https://github.com/pwstrick/pineapple/blob/master/client/public/img/logo.png)
+<img src="https://github.com/pwstrick/pineapple/blob/master/client/public/img/logo.png" style="display:block;margin:0 auto"/>
 
 一套简易的前端监控系统，技术栈是：React+MongoDB+Node.js+Koa2。
 ```

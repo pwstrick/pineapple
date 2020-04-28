@@ -1,0 +1,44 @@
+/***********************************************************************************************************************
+* 变量
+************************************************************************************************************************/
+//颜色
+$color-default:           #333;     //标题
+$color-info:              #666;     //次要标题
+$color-desc:              #999;     //辅助性说明
+$color-help:              #CCC;     //表单帮助性
+$color-warning:           #F2D230;
+$color-highlight:         #F27130;
+$color-link:              #3081F2;
+$color-success:           #2EE66B;
+$color-important:         #F56558;
+$color-white:             #FFF;
+
+//布局
+$bg-defaultg:             #F4F5F6;
+$bg-positive:             #3081F2;
+
+//边框
+$border-color:            #E8E8E8;
+
+//按钮颜色
+$button-bg-color:                       #3081F2;
+$button-text:                           #FFF;
+$button-disabled-bg-color:              #CCC;
+$button-border-color:                   #cacccd;
+$button-active-bg:                      #1F63C2;
+
+/***********************************************************************************************************************
+* minix
+************************************************************************************************************************/
+@mixin bac($url) {
+    background: url("../../img/#{$url}.png") no-repeat center;
+    background-size: 100% 100%;
+  }
+  @mixin bacHeight($url) {
+    background: url("../../img/#{$url}.png") no-repeat center;
+    background-size: auto 100%;
+  }
+  @mixin bacWidth($url) {
+    background: url("../../img/#{$url}.png") no-repeat center;
+    background-size: 100% auto;
+  }

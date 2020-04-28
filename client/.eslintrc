@@ -4,7 +4,14 @@
   "rules": {
     "max-len": ["warn", 200, 4, { "ignoreComments": true }],
 	  "linebreak-style": ["off", "windows"],
-	  "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-props-no-spreading":  ["error", {
+      "html": "ignore",
+      "custom": "ignore",
+      "exceptions": [""]
+    }],
+    "indent": 0,
+    "template-curly-spacing": 0
   },
   "env": {
     "browser": true

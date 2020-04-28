@@ -1,4 +1,4 @@
-import { App } from '../component/app/app';
+import { App } from '../component/Breadcrumb/index';
 
 describe("my test case", () => {
     test("one plus one is two", () => {

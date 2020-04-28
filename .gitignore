@@ -1,0 +1,10 @@
+.idea/
+dist/
+node_modules/
+.DS_Store
+.vscode/
+coverage/
+
+client/node_modules/
+server/node_modules/
+sdk/node_modules/

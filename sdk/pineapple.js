@@ -23,7 +23,7 @@
 		//可自定义的参数
 		param: {
 			rate: 0.5,              //随机采样率
-			src: 'http://10.10.28.139:3000/pa.gif'                 //请求发送数据
+			src: 'http://127.0.0.1:3000/pa.gif'                 //请求发送数据
 		}
 	};
 	
@@ -168,7 +168,7 @@
 	 * http://stackoverflow.com/questions/1248302/javascript-object-size
 	 */
 	function _kb(bytes) {
-		return (bytes / 1024).toFixed(2);       //四舍五入2位小数
+		return parseFloat((bytes / 1024).toFixed(2));       //四舍五入2位小数
 	}
 	
 	/**
@@ -258,14 +258,15 @@
 			// 白屏时间，也就是开始解析DOM耗时
 			var firstPaint = 0;
 
-			// Chrome
-			if (window.chrome && window.chrome.loadTimes) {
-				// Convert to ms
-				firstPaint = window.chrome.loadTimes().firstPaintTime * 1000;
-				api.firstPaintTime = firstPaint - (window.chrome.loadTimes().startLoadTime * 1000);
-			}
+			// Chrome chrome.loadTimes()已废弃
+			// if (window.chrome && window.chrome.loadTimes) {
+			// 	var chromeLoad = window.chrome.loadTimes();
+			// 	// Convert to ms
+			// 	firstPaint = chromeLoad.firstPaintTime * 1000;
+			// 	api.firstPaintTime = firstPaint - (chromeLoad.startLoadTime * 1000);
+			// }
 			// IE
-			else if (typeof timing.msFirstPaint === 'number') {
+			if (typeof timing.msFirstPaint === 'number') {
 				firstPaint = timing.msFirstPaint;
 				api.firstPaintTime = firstPaint - timing.fetchStart;
 			}
@@ -352,8 +353,9 @@
             /**
 			 * SSL连接耗时
 			 */
-            api.connectSslTime = timing.connectEnd - timing.secureConnectionStart;
-            
+			var sslTime = timing.secureConnectionStart;
+            api.connectSslTime = sslTime > 0 ? (timing.connectEnd - sslTime) : 0;
+ 
 			/**
 			 * TCP连接耗时
 			 */
@@ -441,10 +443,10 @@
         var connection = window.navigator.connection || window.navigator.mozConnection || window.navigator.webkitConnection,
             effectiveType = connection.effectiveType;
         if(effectiveType) {
-            return {bandwidth: null, type: effectiveType.toUpperCase()};
+            return {bandwidth: 0, type: effectiveType.toUpperCase()};
         }
 		var types = "Unknown Ethernet WIFI 2G 3G 4G".split(" ");
-        var info = {bandwidth: null, type: null};
+        var info = {bandwidth: 0, type: ""};
 		if(connection && connection.type) {
 			info.type = types[connection.type];
 		}

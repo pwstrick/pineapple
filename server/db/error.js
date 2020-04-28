@@ -1,5 +1,5 @@
-const model = require('./libs/model');
-const MyModel = new model('error', {
+const { model } = require('./libs/model');
+const myModel = new model('error', {
     type: Number,
     desc: String,
     stack: String,
@@ -9,11 +9,11 @@ const MyModel = new model('error', {
 class Mongodb {
     //查询
     query () {
-        return MyModel.query();
+        return myModel.query();
     }
     //保存
     save (obj) {
-        return MyModel.save(obj);
+        return myModel.save(obj);
     }
 }
 module.exports = new Mongodb();

@@ -1,17 +1,18 @@
-const errorDB = require("../db/error");
+const errorModel = require("../db/error");
+const monitorModel = require("../db/monitor");
 
 class indexController {
     collect(ctx) {
-        let {error, data} = ctx.query;
+        let { error, data } = ctx.query;
         if(error) {     //处理错误
-            error = Object.assign(JSON.parse(error), {created: Date.now()});
-            errorDB.save(error);
-            errorDB.query().then(rows => {
-                console.log(rows)
-            });
+            errorModel.save(JSON.parse(error));
+            // errorModel.query().then(rows => {
+            //     console.log(rows);
+            // });
+            return;
         }
-        if(data) {
-            //处理性能
+        if(data) {      //处理性能
+            monitorModel.save(JSON.parse(data));
         }
     }
 }

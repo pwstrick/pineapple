@@ -1,5 +1,5 @@
 # 菠萝监控系统
-<p style="text-align:center">
+<p align="center">
     <img src="https://github.com/pwstrick/pineapple/blob/master/client/public/img/logo.png"/>
 </p>
 

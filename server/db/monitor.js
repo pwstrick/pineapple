@@ -10,20 +10,7 @@ const monitorSchema = new Schema({
 const MyModel = mongoose.model('monitor', monitorSchema);
 
 class Mongodb {
-    constructor () {
-  
-    }
-    //查询
-    query () {
-       return new Promise((resolve, reject) => {
-         MyModel.find({}, (err, res) => {
-           if(err) {
-             reject(err)
-           }
-           resolve(res)
-         })
-       })
-    }
+
     //保存
     save (obj) {
        const m = new MyModel(obj)

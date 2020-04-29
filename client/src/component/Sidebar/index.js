@@ -1,22 +1,24 @@
 import React from 'react';
+// import localUtils from '../../common/utils';
 
 function Sidebar() {
+  const { hash } = window.location;
+  const bars = [
+    { href: '#/', name: 'Dashboard' },
+    { href: '#/monitor', name: '性能分析' },
+    { href: '#/error', name: '错误分析' },
+  ];
+  const html = bars.map((item) => {
+    const className = hash === item.href ? 'active' : '';
+    return (
+      <li className={className} key={item.name}>
+        <a href={item.href}><span>{item.name}</span></a>
+      </li>
+    );
+  });
   return (
     <ul>
-      <li className="active">
-        <a href="index.html"><span>Dashboard</span></a>
-        {' '}
-      </li>
-      <li>
-        {' '}
-        <a href="charts.html"><span>性能分析</span></a>
-        {' '}
-      </li>
-      <li>
-        {' '}
-        <a href="widgets.html"><span>错误分析</span></a>
-        {' '}
-      </li>
+      {html}
     </ul>
   );
 }

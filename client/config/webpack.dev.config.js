@@ -17,6 +17,7 @@ module.exports = merge(base, {
     compress: true,
     useLocalIp: true,
     hot: true,
+    // historyApiFallback: true
   },
   plugins: [
     new HtmlWebpackPlugin({

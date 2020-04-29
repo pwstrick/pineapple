@@ -11,7 +11,8 @@
       "exceptions": [""]
     }],
     "indent": 0,
-    "template-curly-spacing": 0
+    "template-curly-spacing": 0,
+    "no-param-reassign": 0
   },
   "env": {
     "browser": true

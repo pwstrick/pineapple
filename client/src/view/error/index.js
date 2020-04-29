@@ -1,12 +1,10 @@
 import React from 'react';
-// import { observer } from 'mobx-react';
 
-// @observer
-class Home extends React.Component {
+class Error extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: 'Hello Pineapple！',
+      content: 'Hello Error',
     };
   }
 
@@ -15,4 +13,5 @@ class Home extends React.Component {
     return <div>{content}</div>;
   }
 }
-export default Home;
+
+export default Error;

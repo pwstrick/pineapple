@@ -1,0 +1,6 @@
+{
+  "h5": {
+    "production": "m.chelun.com",
+    "test": "wap-test.chelun.com"
+  }
+}

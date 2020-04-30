@@ -1,5 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HappyPack = require('happypack');
+const os = require('os')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 module.exports = {
   entry: {
@@ -19,6 +22,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         use: [
           'babel-loader',
+          // 'happypack/loader?id=babel',
           { loader: 'eslint-loader', options: { fix: true } },
         ],
         exclude: /node_modules/,
@@ -76,5 +80,17 @@ module.exports = {
       filename: 'css/[name].[hash].css',
       chunkFilename: 'css/[id].[hash].css',
     }),
+    // new HappyPack({
+    //   id: 'babel',
+    //   loaders: [
+    //     {
+    //         loader: 'babel-loader',
+    //         options: {
+    //             cacheDirectory: true
+    //         }
+    //     }
+    //   ],
+    //   threadPool: happyThreadPool
+    // })
   ],
 };

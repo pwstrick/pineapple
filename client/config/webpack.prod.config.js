@@ -33,7 +33,7 @@ module.exports = merge(base, {
           test: /node_modules/,
           name: 'vendor',
           enforce: true,
-        },
+        }
       },
     },
   },

@@ -39,7 +39,8 @@ const myModel = new model('monitor', {
       responseDocumentTime: Number,
       unloadEventTime: Number
     },
-    created: Number
+    created: Number,
+    token: String
 });
 
 class Mongodb {

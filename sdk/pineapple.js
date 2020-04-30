@@ -465,7 +465,8 @@
 	 * https://github.com/appsignal/appsignal-frontend-monitoring
 	 */
 	function _paramify(obj) {
-		return 'data=' + JSON.stringify(obj);
+		obj.token = pineapple.param.token;
+		return JSON.stringify(obj);
 	}
 	
 	/**
@@ -476,7 +477,7 @@
 		//采集率
 		if(pineapple.param.rate > Math.random(0, 1)) {
 			var img = new Image(0, 0);
-    		img.src = pineapple.param.src +"?" + _paramify(data) + "&ts=" + ts;
+    		img.src = pineapple.param.src +"?data=" + _paramify(data) + "&ts=" + ts;
 		}
     };
     
@@ -486,7 +487,7 @@
 	pineapple.sendError = function(data) {
 		var ts = new Date().getTime().toString();
 		var img = new Image(0, 0);
-    	img.src = pineapple.param.src +"?error=" + JSON.stringify(data) + "&ts=" + ts;
+    	img.src = pineapple.param.src +"?error=" + _paramify(data) + "&ts=" + ts;
 	};
 	
 	var currentTime = Date.now();       //这个脚本执行完后的时间 计算白屏时间

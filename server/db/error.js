@@ -3,7 +3,8 @@ const myModel = new model('error', {
     type: Number,
     desc: String,
     stack: String,
-    created: Number
+    created: Number,
+    token: String
 });
 
 class Mongodb {

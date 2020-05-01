@@ -42,7 +42,7 @@ npm start
 | 指标     | 计算   |  描述  |
 | -------- | ----  | ----  |
 | firstPaint | 当前时间 - fetchStart | 白屏时间，也就是开始解析DOM耗时，用户在没有滚动时候看到的内容渲染完成并且可以交互的时间 |
-| loadTime | loadEventEnd - navigationStart | 加载总时间，这几乎代表了用户等待页面可用的时间 |
+| loadTime | loadEventEnd-navigationStart | 加载总时间，这几乎代表了用户等待页面可用的时间 |
 | unloadEventTime | unloadEventEnd - unloadEventStart | Unload事件耗时 |
 | loadEventTime | loadEventEnd - loadEventStart | 执行 onload 回调函数的时间 |
 | domReadyTime | domContentLoadedEventEnd - fetchStart | 用户可操作时间 |

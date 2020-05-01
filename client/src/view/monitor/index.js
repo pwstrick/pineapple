@@ -41,7 +41,7 @@ class Monitor extends React.Component {
     return (
       <>
         <div className="ui-mb20">
-          <RangePicker onChange={this.changeDate} className="ui-mr20" />
+          <RangePicker onChange={this.changeDate} className="ui-mr20" showTime={{ format: 'HH:mm' }} format="YYYY-MM-DD HH:mm" />
           <Radio.Group defaultValue="1" buttonStyle="solid" onChange={this.changeTime} className="ui-mr20">
             <Radio.Button value="1">按分</Radio.Button>
             <Radio.Button value="2">按时</Radio.Button>

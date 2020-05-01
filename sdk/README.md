@@ -39,26 +39,26 @@ npm start
     <img src="https://github.com/pwstrick/pineapple/blob/master/sdk/assets/img/performance.png"/>
 </p>
 
-| 指标     | 描述   | 计算   |
+| 指标     | 计算   |  描述  |
 | -------- | ----  | ----  |
-| firstPaint | 白屏时间，也就是开始解析DOM耗时，用户在没有滚动时候看到的内容渲染完成并且可以交互的时间 | 当前时间 - fetchStart |
-| loadTime | 加载总时间，这几乎代表了用户等待页面可用的时间 | loadEventEnd - navigationStart |
-| unloadEventTime | Unload事件耗时 | unloadEventEnd - unloadEventStart |
-| loadEventTime | 执行 onload 回调函数的时间 | loadEventEnd - loadEventStart |
-| domReadyTime | 用户可操作时间 | domContentLoadedEventEnd - fetchStart |
-| firstScreen | 首屏时间，用户在没有滚动时候看到的内容 | domReadyTime或载入图像最长的耗时 |
-| parseDomTime | 解析DOM树结构的时间，期间要加载内嵌资源 | domComplete - domInteractive |
-| initDomTreeTime | 请求完毕至DOM加载耗时 | domInteractive - responseEnd |
-| readyStart | 准备新页面时间耗时 | fetchStart - navigationStart |
-| redirectTime | 重定向的时间 | redirectEnd - redirectStart |
-| appcacheTime | DNS缓存耗时 | domainLookupStart - fetchStart |
-| lookupDomainTime | DNS查询耗时 | domainLookupEnd - domainLookupStart |
-| connectSslTime | SSL连接耗时 | connectEnd - secureConnectionStart |
-| connectTime | TCP连接耗时 | connectEnd - connectStart |
-| requestTime | 内容加载完成的时间 | responseEnd - requestStart |
-| requestDocumentTime | 请求文档时间，开始请求文档到开始接收文档 | responseStart - requestStart |
-| responseDocumentTime | 接收文档时间，开始接收文档到文档接收完成 | responseEnd - responseStart |
-| TTFB | （Time To First Byte），读取页面第一个字节的时间 | responseStart - fetchStart |
+| firstPaint | 当前时间 - fetchStart | 白屏时间，也就是开始解析DOM耗时，用户在没有滚动时候看到的内容渲染完成并且可以交互的时间 |
+| loadTime | loadEventEnd - navigationStart | 加载总时间，这几乎代表了用户等待页面可用的时间 |
+| unloadEventTime | unloadEventEnd - unloadEventStart | Unload事件耗时 |
+| loadEventTime | loadEventEnd - loadEventStart | 执行 onload 回调函数的时间 |
+| domReadyTime | domContentLoadedEventEnd - fetchStart | 用户可操作时间 |
+| firstScreen | domReadyTime或载入图像最长的耗时 | 首屏时间，用户在没有滚动时候看到的内容 |
+| parseDomTime | domComplete - domInteractive | 解析DOM树结构的时间，期间要加载内嵌资源 |
+| initDomTreeTime |  domInteractive - responseEnd |请求完毕至DOM加载耗时 |
+| readyStart | fetchStart - navigationStart | 准备新页面时间耗时 |
+| redirectTime | redirectEnd - redirectStart | 重定向的时间 |
+| appcacheTime | domainLookupStart - fetchStart | DNS缓存耗时 |
+| lookupDomainTime | domainLookupEnd - domainLookupStart | DNS查询耗时 |
+| connectSslTime | connectEnd - secureConnectionStart | SSL连接耗时 |
+| connectTime | connectEnd - connectStart | TCP连接耗时 |
+| requestTime | responseEnd - requestStart | 内容加载完成的时间 |
+| requestDocumentTime | responseStart - requestStart | 请求文档时间，开始请求文档到开始接收文档 |
+| responseDocumentTime | responseEnd - responseStart | 接收文档时间，开始接收文档到文档接收完成 |
+| TTFB | responseStart - fetchStart | （Time To First Byte），读取页面第一个字节的时间 |
 
 ## Ajax指标说明
 | 指标     | 描述   |

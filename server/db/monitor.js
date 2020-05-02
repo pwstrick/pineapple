@@ -40,7 +40,32 @@ const myModel = new model('monitor', {
       unloadEventTime: Number
     },
     created: Number,
-    token: String
+    token: String,
+    agent: {
+      ua: String,
+      browser: {
+          name: String,
+      version: String,
+      major: String
+      },
+      engine: {
+          name: String,
+          version: String
+      },
+      os: {
+          name: String,
+          version: String
+      },
+      device: {
+          vendor: String,
+          model: String,
+          type: String
+      },
+      cpu: {
+          architecture: String
+      }
+    },
+    url: String
 });
 
 class Mongodb {

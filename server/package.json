@@ -22,7 +22,8 @@
     "koa-views": "^6.2.0",
     "mongoose": "^5.9.10",
     "pm2": "^4.4.0",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "ua-parser-js": "^0.7.21"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

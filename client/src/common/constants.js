@@ -1,4 +1,4 @@
-const PERFORMANCE = {
+export const PERFORMANCE = {
     TTFB: 'TTFB',
     appcacheTime: 'DNS缓存耗时',
     connectSslTime: 'SSL连接耗时',
@@ -19,4 +19,12 @@ const PERFORMANCE = {
     unloadEventTime: 'Unload事件耗时',
 };
 
-export default PERFORMANCE;
+export const ERROR_TYPE = {
+    1: 'runtime',
+    2: 'script',
+    3: 'style',
+    4: 'image',
+    5: 'audio',
+    6: 'video',
+    7: 'promise',
+};

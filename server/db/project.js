@@ -2,7 +2,8 @@ const { model } = require('./libs/model');
 const myModel = new model('project', {
     name: {
        type: String,
-       unique: true
+       unique: true,
+       required: true
     },
     created: Number,
     token: String,

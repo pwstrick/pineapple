@@ -56,4 +56,8 @@ export default {
   createProject(param) {
     return this.ajax(hosts.server[mode], '/project/create', param);
   },
+  // 读取所有项目
+  getAllProjects() {
+    return this.ajax(hosts.server[mode], '/project/all');
+  },
 };

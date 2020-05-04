@@ -5,7 +5,7 @@ const config = require(`../../config/${env}`);
 
 const DB_URL = config.mongodb_url;
 
-mongoose.connect(DB_URL, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(DB_URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
 
 mongoose.connection.on('connected',function() {
    console.log('Mongoose connection open to '+DB_URL);

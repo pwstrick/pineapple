@@ -1,56 +1,57 @@
 import React from 'react';
 import { Table } from 'antd';
 import ProjectForm from './form';
+import data from '../../common/data';
 
-function Project() {
-//   constructor(props) {
-//     super(props);
-//   }
+class Project extends React.Component {
+    constructor(props) {
+        super(props);
+        this.columns = [
+            {
+                title: '项目名称',
+                dataIndex: 'name',
+                key: 'name',
+            },
+            {
+                title: 'token',
+                dataIndex: 'token',
+                key: 'token',
+            },
+        ];
+        this.state = {
+            source: [],
+        };
+        this.updateProject = this.updateProject.bind(this);
+    }
 
-//   componentDidMount() {
-//     echartPie({ id: 'pie' });
-//   }
+    componentDidMount() {
+        data.getAllProjects().then((json) => {
+            json.data.forEach((value) => {
+                value.key = value.token;
+            });
+            this.setState({ source: json.data });
+        });
+    }
 
-    const dataSource = [
-        {
-        key: '1',
-        name: '胡彦斌',
-        age: 32,
-        address: '西湖区湖底公园1号',
-        },
-        {
-        key: '2',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-        },
-    ];
+    updateProject(row) {
+        const { source } = this.state;
+        row.key = row.token;
+        source.push(row);
+        // console.log(row);
+        this.setState({ source });
+    }
 
-    const columns = [
-        {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name',
-        },
-        {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age',
-        },
-        {
-        title: '住址',
-        dataIndex: 'address',
-        key: 'address',
-        },
-    ];
-    return (
-      <>
-        <div className="ui-mb20">
-          <ProjectForm />
-        </div>
-        <Table dataSource={dataSource} columns={columns} pagination={false} />
-      </>
-    );
+    render() {
+        const { source } = this.state;
+        return (
+          <>
+            <div className="ui-mb20">
+              <ProjectForm onCreate={this.updateProject} />
+            </div>
+            <Table dataSource={source} columns={this.columns} pagination={false} />
+          </>
+          );
+    }
 }
 
 export default Project;

@@ -57,14 +57,19 @@ CreateForm.propTypes = {
     onCancel: PropTypes.func.isRequired,
 };
 
-const ProjectForm = () => {
+const ProjectForm = (props) => {
     const [visible, setVisible] = useState(false);
+    // const { create } = props;
 
     const onCreate = (values) => {
     //   console.log('Received values of form: ', values);
       // 提交到后台
-      data.createProject(values).then(() => {
-        setVisible(false);
+      data.createProject(values).then((json) => {
+            if (json.code !== 0) {
+                return;
+            }
+            props.onCreate(json.data);
+            setVisible(false);
       });
     };
 
@@ -89,4 +94,7 @@ const ProjectForm = () => {
     );
   };
 
+ProjectForm.propTypes = {
+    onCreate: PropTypes.func.isRequired,
+};
   export default ProjectForm;

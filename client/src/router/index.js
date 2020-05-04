@@ -17,8 +17,8 @@ function App(props) {
   const [Page, setPage] = useState(null);
   const router = {
     '/': {
-      url: 'view/home/index',
-      title: '菠萝监控系统主页',
+      url: 'view/project/index',
+      title: '项目管理',
     },
     '/error': {
       url: 'view/error/index',

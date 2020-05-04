@@ -21,12 +21,12 @@ const myModel = new model('error', {
             version: String
         },
         device: {
-            vendor: String,
-            model: String,
-            type: String
+            vendor: { type: String, default: undefined },
+            model: { type: String, default: undefined },
+            type: { type: String, default: undefined }
         },
         cpu: {
-            architecture: String
+            architecture: { type: String, default: undefined }
         }
     },
     url: String

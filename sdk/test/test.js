@@ -1,6 +1,6 @@
 
 
-$.post("http://10.10.28.139:4000", { type:1 }, function(json) {
+$.post("http://127.0.0.1:3001", { type:1 }, function(json) {
     console.log("测试Ajax");
 });
 

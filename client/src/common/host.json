@@ -1,6 +1,10 @@
 {
   "h5": {
-    "production": "m.chelun.com",
-    "test": "wap-test.chelun.com"
+    "production": "m.pwstrick.com",
+    "test": "wap-test.pwstrick.com"
+  },
+  "server": {
+    "production": "m.pwstrick.com",
+    "test": "127.0.0.1:3001"
   }
 }

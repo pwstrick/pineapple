@@ -7,7 +7,7 @@ const myModel = new model('monitor', {
         interval: Number,
         start: Number,
         startBytes: Number,
-        type: String,
+        type: {type: String},
         url: String
       })
     ],
@@ -17,7 +17,7 @@ const myModel = new model('monitor', {
     },
     network: {
       bandwidth: Number,
-      type: String
+      type: {type: String},
     },
     time: {
       TTFB: Number,
@@ -45,8 +45,8 @@ const myModel = new model('monitor', {
       ua: String,
       browser: {
           name: String,
-      version: String,
-      major: String
+          version: String,
+          major: String
       },
       engine: {
           name: String,
@@ -57,12 +57,12 @@ const myModel = new model('monitor', {
           version: String
       },
       device: {
-          vendor: String,
-          model: String,
-          type: String
+          vendor: { type: String, default: undefined },
+          model: { type: String, default: undefined },
+          type: { type: String, default: undefined }
       },
       cpu: {
-          architecture: String
+          architecture: { type: String, default: undefined }
       }
     },
     url: String

@@ -1,8 +1,9 @@
 const errorModel = require("../db/error");
 const monitorModel = require("../db/monitor");
 const uaParser = require('ua-parser-js');
+const baseController = require('base');
 
-class indexController {
+class indexController extends baseController {
     collect(ctx) {
         let { error, data } = ctx.query;
         //分析代理

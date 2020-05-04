@@ -7,12 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('demo:server');
 var http = require('http');
+const env = process.env.NODE_ENV;   //环境
+const config = require(`../config/${env}`);
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(config.port || '3000');
 // app.set('port', port);
 
 /**

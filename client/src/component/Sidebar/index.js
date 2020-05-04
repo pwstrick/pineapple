@@ -4,7 +4,7 @@ import React from 'react';
 function Sidebar() {
   const { hash } = window.location;
   const bars = [
-    { href: '#/', name: 'Dashboard' },
+    { href: '#/', name: '项目管理' },
     { href: '#/monitor', name: '性能分析' },
     { href: '#/error', name: '错误分析' },
   ];

@@ -1,8 +1,8 @@
 const mongoose = require('./db');
 
 class Mongodb {
-    constructor (name, schema) { 
-        const mySchema = new mongoose.Schema(schema, { typeKey: '$type' });    //声明结构
+    constructor (name, schema, options={}) { 
+        const mySchema = new mongoose.Schema(schema, options);    //声明结构
         this.model = mongoose.model(name, mySchema);
     }
     //保存

@@ -66,7 +66,8 @@ const ProjectForm = (props) => {
       // 提交到后台
       data.createProject(values).then((json) => {
             if (json.code !== 0) {
-                return;
+              Modal.error({ content: json.msg });
+              return;
             }
             props.onCreate(json.data);
             setVisible(false);

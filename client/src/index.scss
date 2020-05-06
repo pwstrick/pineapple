@@ -1197,3 +1197,19 @@ h6,.h6 {
   height: 600px;
   background: #FFF;
 }
+/***********************************************************************************************************************
+* 标签
+************************************************************************************************************************/
+.card-container > .ant-tabs-card .ant-tabs-content {
+  background: #fff;
+  padding: 16px;
+  margin-top: -16px;
+}
+.card-container > .ant-tabs-card .ant-tabs-bar,
+.card-container > .ant-tabs-card .ant-tabs-tab-active {
+  border-color: #fff;
+}
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+  border-radius: 6px 6px 0 0;
+  margin-left: -1px;
+}

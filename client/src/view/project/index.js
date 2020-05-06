@@ -37,8 +37,7 @@ class Project extends React.Component {
         const { source } = this.state;
         row.key = row.token;
         source.push(row);
-        // console.log(row);
-        this.setState({ source });
+        this.setState({ source: [...source] });
     }
 
     render() {

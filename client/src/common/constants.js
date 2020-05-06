@@ -28,3 +28,9 @@ export const ERROR_TYPE = {
     6: 'video',
     7: 'promise',
 };
+
+export const FILTER_TIME = {
+    1: '按分',
+    2: '按时',
+    3: '按日',
+};

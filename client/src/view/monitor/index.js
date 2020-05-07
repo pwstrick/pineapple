@@ -15,10 +15,9 @@ class Monitor extends React.Component {
     echartPie({ id: 'pie' });
   }
 
-  submit1() {
+  submit1(filter) {
     echartLine({ id: 'chart' });
-    console.log(this);
-    // this.setState({ date: '' });
+    console.log(filter, this);
   }
 
   render() {

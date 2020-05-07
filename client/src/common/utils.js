@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 import host from './host.json';
-import { history } from '../router/index';
+// import { history } from '../router/index';
 
 export default {
   // "test": "http://10.10.28.139:3000/#/exchange"
@@ -44,7 +44,10 @@ export default {
     });
     return decodeURIComponent(maps[name] || '');
   },
-  getPathname() {
-    return history.location.pathname;
+  // getPathname() {
+  //   return history.location.pathname;
+  // },
+  dateToTimestamp(date) {
+    return +new Date(date);
   },
 };

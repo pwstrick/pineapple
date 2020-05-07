@@ -1,26 +1,52 @@
 import React from 'react';
 import {
- DatePicker, Radio, Button, Select,
+ DatePicker, Radio, Button, Select, Modal,
 } from 'antd';
 import PropTypes from 'prop-types';
 import { PERFORMANCE, FILTER_TIME } from '../../common/constants';
+import localUtils from '../../common/utils';
+import SelectProjects from '../../component/Filter/index';
 
 class Filter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        date: '',
-        time: '',
+        date: [],
+        time: Object.keys(FILTER_TIME)[0],
         field: '',
+        token: '',
     };
+    this.onSubmit = this.onSubmit.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.changeTime = this.changeTime.bind(this);
     this.changeField = this.changeField.bind(this);
-    this.onSubmit = props.submit;
+    this.changeProject = this.changeProject.bind(this);
+  }
+
+  onSubmit() {
+    const { date, field, token } = this.state;
+    if (date.length === 0) {
+      Modal.error({ content: '请选择日期' });
+      return;
+    }
+    if (field.length === 0) {
+      Modal.error({ content: '请选择字段' });
+      return;
+    }
+    if (token.length === 0) {
+      Modal.error({ content: '请选择项目' });
+      return;
+    }
+    const { submit } = this.props;
+    submit(this.state);
+    // echartLine({ id: 'chart' });
+    // this.setState({ date: '提交' });
   }
 
   changeDate(dates, date) {
     // console.log(dates, date);
+    // 转换成时间戳
+    date = date.map((value) => localUtils.dateToTimestamp(value));
     this.setState({ date });
   }
 
@@ -32,18 +58,17 @@ class Filter extends React.Component {
     this.setState({ time: e.target.value });
   }
 
-//   submit() {
-//     // echartLine({ id: 'chart' });
-//     // this.setState({ date: '提交' });
-//   }
+  changeProject(token) {
+    this.setState({ token });
+  }
 
   render() {
-    const { date, time, field } = this.state;
     const { RangePicker } = DatePicker;
     const { Option } = Select;
 
     return (
       <div className="ui-mb20">
+        <SelectProjects change={this.changeProject} />
         <Select defaultValue="选择性能字段" style={{ width: 160 }} onChange={this.changeField} className="ui-mr20">
           {
                 Object.keys(PERFORMANCE).map((value) => <Option value={value} key={value}>{PERFORMANCE[value]}</Option>)
@@ -56,9 +81,6 @@ class Filter extends React.Component {
             }
         </Radio.Group>
         <Button onClick={this.onSubmit} type="primary">查询</Button>
-        {date}
-        {time}
-        {field}
       </div>
     );
   }

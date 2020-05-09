@@ -39,7 +39,7 @@ const myModel = new model('monitor', {
       responseDocumentTime: Number,
       unloadEventTime: Number
     },
-    created: Number,
+    created: String,
     token: String,
     agent: {
       ua: String,
@@ -68,9 +68,46 @@ const myModel = new model('monitor', {
     url: String
 });
 
+const constants = require("../utils/constants");
+
 class Mongodb {
   save (obj) {
     return myModel.save(obj);
+  }
+  queryTime (time, date, token, field) {
+    const conditions = {
+      token,
+      created: { $gte: date[0], $lte: date[1] }
+    };
+    // const group = { month: { $month: "$created" } };
+    // const group = { month: { $month: {$dateFromString:{dateString: "$created"}} } };
+    // 聚合条件
+    const format = {$dateFromString:{dateString: "$created"}};
+    let group = { 
+      year: { $year: format }, 
+      month: { $month: format }, 
+      day: { $dayOfMonth: format }
+    };
+    let hour = {
+      hour: { $hour: format }
+    };
+    let minute = {
+      minute: { $minute: format }
+    }
+    switch(time) {
+      case constants.FILTER_TIME_DAY:
+          break;
+      case constants.FILTER_TIME_HOUR:
+          group = Object.assign(group, hour);
+          break;
+      case constants.FILTER_TIME_MINUTE:
+          group = Object.assign(group, hour, minute);
+          break;
+    }
+    // const group = '$token';, day: { $dayOfMonth: "$created" }, year: { $year: "$created" }
+    return myModel.avg(field, group, conditions, {_id: 1});
+    // const fields = { [`time.${field}`]: 1, created: 1 };
+    // return myModel.query(conditions, fields, {created: 1});
   }
 }
 module.exports = new Mongodb();

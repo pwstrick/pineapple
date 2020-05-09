@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import PropTypes from 'prop-types';
 import { PERFORMANCE, FILTER_TIME } from '../../common/constants';
-import localUtils from '../../common/utils';
+// import localUtils from '../../common/utils';
 import SelectProjects from '../../component/Filter/index';
 
 class Filter extends React.Component {
@@ -46,7 +46,7 @@ class Filter extends React.Component {
   changeDate(dates, date) {
     // console.log(dates, date);
     // 转换成时间戳
-    date = date.map((value) => localUtils.dateToTimestamp(value));
+    // date = date.map((value) => localUtils.dateToTimestamp(value));
     this.setState({ date });
   }
 
@@ -67,21 +67,25 @@ class Filter extends React.Component {
     const { Option } = Select;
 
     return (
-      <div className="ui-mb20">
-        <SelectProjects change={this.changeProject} />
-        <Select defaultValue="选择性能字段" style={{ width: 160 }} onChange={this.changeField} className="ui-mr20">
-          {
+      <>
+        <div className="ui-mb20">
+          <SelectProjects change={this.changeProject} />
+          <Select defaultValue="选择性能字段" style={{ width: 160 }} onChange={this.changeField} className="ui-mr20">
+            {
                 Object.keys(PERFORMANCE).map((value) => <Option value={value} key={value}>{PERFORMANCE[value]}</Option>)
             }
-        </Select>
-        <RangePicker onChange={this.changeDate} className="ui-mr20" showTime={{ format: 'HH:mm' }} format="YYYY-MM-DD HH:mm" />
-        <Radio.Group defaultValue="1" buttonStyle="solid" onChange={this.changeTime} className="ui-mr20">
-          {
+          </Select>
+        </div>
+        <div className="ui-mb20">
+          <RangePicker onChange={this.changeDate} className="ui-mr20" showTime={{ format: 'HH:mm' }} format="YYYY-MM-DD HH:mm" />
+          <Radio.Group defaultValue="1" buttonStyle="solid" onChange={this.changeTime} className="ui-mr20">
+            {
                 Object.keys(FILTER_TIME).map((value) => <Radio.Button value={value} key={value}>{FILTER_TIME[value]}</Radio.Button>)
             }
-        </Radio.Group>
-        <Button onClick={this.onSubmit} type="primary">查询</Button>
-      </div>
+          </Radio.Group>
+          <Button onClick={this.onSubmit} type="primary">查询</Button>
+        </div>
+      </>
     );
   }
 }

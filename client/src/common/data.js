@@ -40,7 +40,7 @@ export default {
     }
 
     return Promise.race([fetch(url, {
-      method: 'GET',
+      method: opt.method,
       // credentials: 'include',
       ...opt,
     }).then((str) => str.json()), new Promise((resolve) => {
@@ -52,12 +52,24 @@ export default {
           }, 50000);
         })]);
       },
+  post(host, url, param = {}, opt = {}) {
+    const method = { method: 'POST' };
+    return this.ajax(host, url, param, Object.assign(opt, method));
+  },
+  get(host, url, param = {}, opt = {}) {
+    const method = { method: 'GET' };
+    return this.ajax(host, url, param, Object.assign(opt, method));
+  },
   // 创建项目
   createProject(param) {
-    return this.ajax(hosts.server[mode], '/project/create', param);
+    return this.get(hosts.server[mode], '/project/create', param);
   },
   // 读取所有项目
   getAllProjects() {
-    return this.ajax(hosts.server[mode], '/project/all');
+    return this.get(hosts.server[mode], '/project/all');
+  },
+  // 查询性能指标
+  queryTime(param) {
+    return this.get(hosts.server[mode], '/monitor/queryTime', param);
   },
 };

@@ -1,3 +1,4 @@
+// import {useState, useEffect} from 'react';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/pie';
@@ -11,7 +12,7 @@ export function echartLine(props) {
         },
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            data: props.data.x,
         },
         yAxis: {
             type: 'value',
@@ -20,7 +21,7 @@ export function echartLine(props) {
             },
         },
         series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            data: props.data.y,
             type: 'line',
         }],
     };

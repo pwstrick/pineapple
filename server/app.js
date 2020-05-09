@@ -10,6 +10,7 @@ const cors = require('koa2-cors');
 const index = require('./routes/index')
 const users = require('./routes/users')
 const projects = require('./routes/projects')
+const monitors = require('./routes/monitors')
 
 // error handler
 onerror(app)
@@ -18,6 +19,7 @@ onerror(app)
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
+// app.use(bodyparser())
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -45,6 +47,7 @@ app.use(cors({
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(projects.routes(), projects.allowedMethods())
+app.use(monitors.routes(), monitors.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

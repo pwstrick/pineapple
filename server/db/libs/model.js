@@ -1,3 +1,4 @@
+const moment = require('moment');
 const mongoose = require('./db');
 
 class Mongodb {
@@ -7,7 +8,8 @@ class Mongodb {
     }
     //保存
     save (obj) {
-        obj.created = Date.now();       //日期
+        obj.created = obj.created || moment().format('YYYY-MM-DD HH:mm:ss');         //日期
+        // obj.created = new Date();         //日期
         const doc = new this.model(obj);
         return new Promise((resolve, reject)=> {
             doc.save((err, row) => {
@@ -16,13 +18,42 @@ class Mongodb {
                 return;
               }
               resolve(row);
-            })
+            });
         });
      }
     //查询
-    query (conditions = {}, fields  ={}) {
+    query (conditions={}, fields={}, order={}, number=0) {
         return new Promise((resolve, reject) => {
-            this.model.find(conditions, fields,(err, rows) => {
+            this.model.find(conditions, fields).sort(order).limit(number).exec((err, rows) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve(rows);
+            })
+        });
+    }
+    //查询一条数据
+    findOne (conditions={}, fields={}) {
+        return new Promise((resolve, reject) => {
+            this.model.findOne(conditions, fields).exec((err, row) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve(row);
+            })
+        });
+    }
+    //计算平均值
+    avg (field, group, conditions={}, order={}) {
+        // console.log(conditions)
+        return new Promise((resolve, reject) => {
+            this.model.aggregate([
+                { $match: conditions },
+                { $group: { _id: group,  [field]: {$avg: `$time.${field}`} } },
+                { $sort: order }
+            ]).exec((err, rows) => {
                 if(err) {
                     reject(err);
                     return;

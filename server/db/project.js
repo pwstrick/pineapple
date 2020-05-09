@@ -5,7 +5,7 @@ const myModel = new model('project', {
        unique: true,
        required: true
     },
-    created: Number,
+    created: String,
     token: String,
 });
 
@@ -17,6 +17,10 @@ class Mongodb {
     //保存
     save (obj) {
         return myModel.save(obj);
+    }
+    //查询
+    getRowByName (name) {
+        return myModel.findOne({name});
     }
 }
 module.exports = new Mongodb();

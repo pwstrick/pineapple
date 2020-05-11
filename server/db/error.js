@@ -1,4 +1,5 @@
 const { model } = require('./libs/model');
+const constants = require("../utils/constants");
 const myModel = new model('error', {
     type: Number,
     desc: String,
@@ -33,14 +34,62 @@ const myModel = new model('error', {
 });
 
 class Mongodb {
-    //查询
-    query () {
-        return myModel.query();
-    }
     //保存
     save (obj) {
         return myModel.save(obj);
     }
+    queryError ({time, date, token, type}) {
+        const conditions = {
+          token,
+          created: { $gte: date[0], $lte: date[1] },
+          type
+        };
+        // const group = { month: { $month: "$created" } };
+        // const group = { month: { $month: {$dateFromString:{dateString: "$created"}} } };
+        // 聚合条件
+        const format = {$dateFromString:{dateString: "$created"}};
+        let group = { 
+          year: { $year: format }, 
+          month: { $month: format }, 
+          day: { $dayOfMonth: format }
+        };
+        let hour = {
+          hour: { $hour: format }
+        };
+        let minute = {
+          minute: { $minute: format }
+        }
+        switch(time) {
+          case constants.FILTER_TIME_DAY:
+              break;
+          case constants.FILTER_TIME_HOUR:
+              group = Object.assign(group, hour);
+              break;
+          case constants.FILTER_TIME_MINUTE:
+              group = Object.assign(group, hour, minute);
+              break;
+        }
+        // const group = '$token';, day: { $dayOfMonth: "$created" }, year: { $year: "$created" }
+        return myModel.sum({name: "sum", sum: 1}, group, conditions, {_id: 1});
+        // const fields = { [`time.${field}`]: 1, created: 1 };
+        // return myModel.query(conditions, fields, {created: 1});
+      }
+      queryErrorList ({date, token, type, number, offset}) {
+        const conditions = {
+          token,
+          type,
+          created: { $gte: date[0], $lte: date[1] }
+        };
+        return myModel.query(conditions, {}, {created: 1}, number, offset);
+      }
+      queryErrorListCount ({date, token, type}) {
+        const conditions = {
+          token,
+          created: { $gte: date[0], $lte: date[1] },
+          type
+        };
+        return myModel.count(conditions);
+      }
 }
 module.exports = new Mongodb();
 

@@ -11,6 +11,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const projects = require('./routes/projects')
 const monitors = require('./routes/monitors')
+const errors = require('./routes/errors')
 
 // error handler
 onerror(app)
@@ -48,6 +49,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(projects.routes(), projects.allowedMethods())
 app.use(monitors.routes(), monitors.allowedMethods())
+app.use(errors.routes(), errors.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

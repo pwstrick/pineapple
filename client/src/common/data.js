@@ -76,4 +76,12 @@ export default {
   queryTimeList(param) {
     return this.get(hosts.server[mode], '/monitor/queryTimeList', param);
   },
+  // 查询错误
+  queryError(param) {
+    return this.get(hosts.server[mode], '/error/queryError', param);
+  },
+  // 查询错误列表
+  queryErrorList(param) {
+    return this.get(hosts.server[mode], '/error/queryErrorList', param);
+  },
 };

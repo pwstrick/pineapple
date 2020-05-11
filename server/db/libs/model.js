@@ -59,11 +59,26 @@ class Mongodb {
     }
     //计算平均值
     avg (field, group, conditions={}, order={}) {
-        // console.log(conditions)
         return new Promise((resolve, reject) => {
             this.model.aggregate([
                 { $match: conditions },
-                { $group: { _id: group,  [field]: {$avg: `$time.${field}`} } },
+                { $group: { _id: group,  [field.name]: {$avg: field.avg} } },
+                { $sort: order }
+            ]).exec((err, rows) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve(rows);
+            })
+        });
+    }
+    //计算相加
+    sum (field, group, conditions={}, order={}) {
+        return new Promise((resolve, reject) => {
+            this.model.aggregate([
+                { $match: conditions },
+                { $group: { _id: group,  [field.name]: {$sum: field.sum} } },
                 { $sort: order }
             ]).exec((err, rows) => {
                 if(err) {

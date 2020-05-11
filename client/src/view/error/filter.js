@@ -3,7 +3,7 @@ import {
  DatePicker, Radio, Button, Select, Modal,
 } from 'antd';
 import PropTypes from 'prop-types';
-import { PERFORMANCE, FILTER_TIME } from '../../common/constants';
+import { ERROR_TYPE, FILTER_TIME } from '../../common/constants';
 // import localUtils from '../../common/utils';
 import SelectProjects from '../../component/Filter/index';
 
@@ -13,24 +13,24 @@ class Filter extends React.Component {
     this.state = {
         date: [],
         time: Object.keys(FILTER_TIME)[0],
-        field: '',
+        type: '',
         token: '',
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.changeTime = this.changeTime.bind(this);
-    this.changeField = this.changeField.bind(this);
+    this.changeType = this.changeType.bind(this);
     this.changeProject = this.changeProject.bind(this);
   }
 
   onSubmit() {
-    const { date, field, token } = this.state;
+    const { date, type, token } = this.state;
     if (token.length === 0) {
       Modal.error({ content: '请选择项目' });
       return;
     }
-    if (field.length === 0) {
-      Modal.error({ content: '请选择字段' });
+    if (type.length === 0) {
+      Modal.error({ content: '请选择错误类别' });
       return;
     }
     if (date.length === 0) {
@@ -45,8 +45,8 @@ class Filter extends React.Component {
     this.setState({ date });
   }
 
-  changeField(field) {
-    this.setState({ field });
+  changeType(type) {
+    this.setState({ type });
   }
 
   changeTime(e) {
@@ -77,9 +77,9 @@ class Filter extends React.Component {
       <>
         <div className="ui-mb20">
           <SelectProjects change={this.changeProject} />
-          <Select defaultValue="选择性能字段" style={{ width: 160 }} onChange={this.changeField} className="ui-mr20">
+          <Select defaultValue="选择错误类别" style={{ width: 160 }} onChange={this.changeType} className="ui-mr20">
             {
-              Object.keys(PERFORMANCE).map((value) => <Option value={value} key={value}>{PERFORMANCE[value]}</Option>)
+              Object.keys(ERROR_TYPE).map((value) => <Option value={value} key={value}>{ERROR_TYPE[value]}</Option>)
           }
           </Select>
         </div>

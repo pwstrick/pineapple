@@ -11,7 +11,7 @@ import { PAGINATION_NUM } from '../../common/constants';
 class Monitor extends React.Component {
   static submit1(filter) {
     data.queryTime(filter).then((json) => {
-      echartLine({ id: 'chart', data: json.data });
+      echartLine({ id: 'chart', data: json.data, unit: 'ms' });
     });
   }
 
@@ -23,7 +23,6 @@ class Monitor extends React.Component {
       pageNumber: PAGINATION_NUM,
     };
     this.submit2 = this.submit2.bind(this);
-    // const columnsKey = 1;
     this.columns = [
       {
         title: '性能参数(ms)',

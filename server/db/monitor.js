@@ -1,4 +1,5 @@
 const { model,mongoose } = require('./libs/model');
+const constants = require("../utils/constants");
 const myModel = new model('monitor', {
     ajaxs: [
       new mongoose.Schema({
@@ -68,13 +69,11 @@ const myModel = new model('monitor', {
     url: String
 });
 
-const constants = require("../utils/constants");
-
 class Mongodb {
   save (obj) {
     return myModel.save(obj);
   }
-  queryTime (time, date, token, field) {
+  queryTime ({time, date, token, field}) {
     const conditions = {
       token,
       created: { $gte: date[0], $lte: date[1] }
@@ -105,18 +104,18 @@ class Mongodb {
           break;
     }
     // const group = '$token';, day: { $dayOfMonth: "$created" }, year: { $year: "$created" }
-    return myModel.avg(field, group, conditions, {_id: 1});
+    return myModel.avg({name: field, avg: `$time.${field}`}, group, conditions, {_id: 1});
     // const fields = { [`time.${field}`]: 1, created: 1 };
     // return myModel.query(conditions, fields, {created: 1});
   }
-  queryTimeList (date, token, number, offset) {
+  queryTimeList ({date, token, number, offset}) {
     const conditions = {
       token,
       created: { $gte: date[0], $lte: date[1] }
     };
     return myModel.query(conditions, {}, {created: 1}, number, offset);
   }
-  queryTimeListCount (date, token) {
+  queryTimeListCount ({date, token}) {
     const conditions = {
       token,
       created: { $gte: date[0], $lte: date[1] }

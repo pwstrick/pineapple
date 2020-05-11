@@ -17,7 +17,7 @@ export function echartLine(props) {
         yAxis: {
             type: 'value',
             axisLabel: {
-              formatter: '{value} ms',
+              formatter: `{value} ${props.unit}`,
             },
         },
         series: [{

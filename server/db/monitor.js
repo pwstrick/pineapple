@@ -109,5 +109,20 @@ class Mongodb {
     // const fields = { [`time.${field}`]: 1, created: 1 };
     // return myModel.query(conditions, fields, {created: 1});
   }
+  queryTimeList (date, token, number, offset) {
+    const conditions = {
+      token,
+      created: { $gte: date[0], $lte: date[1] }
+    };
+    return myModel.query(conditions, {}, {created: 1}, number, offset);
+  }
+  queryTimeListCount (date, token) {
+    const conditions = {
+      token,
+      created: { $gte: date[0], $lte: date[1] }
+    };
+    return myModel.count(conditions);
+  }
 }
+
 module.exports = new Mongodb();

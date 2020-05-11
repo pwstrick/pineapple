@@ -25,16 +25,16 @@ class Filter extends React.Component {
 
   onSubmit() {
     const { date, field, token } = this.state;
-    if (date.length === 0) {
-      Modal.error({ content: '请选择日期' });
+    if (token.length === 0) {
+      Modal.error({ content: '请选择项目' });
       return;
     }
     if (field.length === 0) {
       Modal.error({ content: '请选择字段' });
       return;
     }
-    if (token.length === 0) {
-      Modal.error({ content: '请选择项目' });
+    if (date.length === 0) {
+      Modal.error({ content: '请选择日期' });
       return;
     }
     const { submit } = this.props;
@@ -65,6 +65,18 @@ class Filter extends React.Component {
   render() {
     const { RangePicker } = DatePicker;
     const { Option } = Select;
+    const { isShowTime } = this.props;
+
+    let SelectTime = '';
+    if (isShowTime) {
+      SelectTime = (
+        <Radio.Group defaultValue="1" buttonStyle="solid" onChange={this.changeTime} className="ui-mr20">
+          {
+                Object.keys(FILTER_TIME).map((value) => <Radio.Button value={value} key={value}>{FILTER_TIME[value]}</Radio.Button>)
+            }
+        </Radio.Group>
+        );
+    }
 
     return (
       <>
@@ -72,17 +84,13 @@ class Filter extends React.Component {
           <SelectProjects change={this.changeProject} />
           <Select defaultValue="选择性能字段" style={{ width: 160 }} onChange={this.changeField} className="ui-mr20">
             {
-                Object.keys(PERFORMANCE).map((value) => <Option value={value} key={value}>{PERFORMANCE[value]}</Option>)
-            }
+              Object.keys(PERFORMANCE).map((value) => <Option value={value} key={value}>{PERFORMANCE[value]}</Option>)
+          }
           </Select>
         </div>
         <div className="ui-mb20">
           <RangePicker onChange={this.changeDate} className="ui-mr20" showTime={{ format: 'HH:mm' }} format="YYYY-MM-DD HH:mm" />
-          <Radio.Group defaultValue="1" buttonStyle="solid" onChange={this.changeTime} className="ui-mr20">
-            {
-                Object.keys(FILTER_TIME).map((value) => <Radio.Button value={value} key={value}>{FILTER_TIME[value]}</Radio.Button>)
-            }
-          </Radio.Group>
+          {SelectTime}
           <Button onClick={this.onSubmit} type="primary">查询</Button>
         </div>
       </>
@@ -92,6 +100,7 @@ class Filter extends React.Component {
 
 Filter.propTypes = {
     submit: PropTypes.func.isRequired,
+    isShowTime: PropTypes.bool.isRequired,
 };
 
 export default Filter;

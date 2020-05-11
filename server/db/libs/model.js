@@ -22,9 +22,9 @@ class Mongodb {
         });
      }
     //查询
-    query (conditions={}, fields={}, order={}, number=0) {
+    query (conditions={}, fields={}, order={}, number=0, offset=0) {
         return new Promise((resolve, reject) => {
-            this.model.find(conditions, fields).sort(order).limit(number).exec((err, rows) => {
+            this.model.find(conditions, fields).sort(order).skip(offset).limit(number).exec((err, rows) => {
                 if(err) {
                     reject(err);
                     return;
@@ -42,6 +42,18 @@ class Mongodb {
                     return;
                 }
                 resolve(row);
+            })
+        });
+    }
+    //读取记录数量
+    count (conditions={}) {
+        return new Promise((resolve, reject) => {
+            this.model.count(conditions).exec((err, number) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve(number);
             })
         });
     }

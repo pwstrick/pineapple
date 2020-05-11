@@ -168,7 +168,14 @@
 	 * http://stackoverflow.com/questions/1248302/javascript-object-size
 	 */
 	function _kb(bytes) {
-		return parseFloat((bytes / 1024).toFixed(2));       //四舍五入2位小数
+		return _rounded(bytes / 1024, 2);       //四舍五入2位小数
+	}
+
+	/**
+	 * 四舍五入
+	 */
+	function _rounded(number, decimal) {
+		return parseFloat(number.toFixed(decimal));
 	}
 	
 	/**
@@ -215,11 +222,27 @@
 	    	});
 	    }
 	}, false);
-	
+
+	/**
+	 * 递归的将数字四舍五入小数点后两位
+	 */
+	function handleNumber(obj) {
+		var type = typeof obj;
+		if(type === "object" && type !== null) {
+			for(var key in obj) {
+				obj[key] = handleNumber(obj[key]);
+			}
+		}
+		if(type === "number") {
+			return _rounded(obj, 2);
+		}
+		return obj;
+	}
+
 	window.addEventListener('load', function() {
 		setTimeout(function() {
 			var time = pineapple.getTimes();
-            var data = { ajaxs:pineapple.ajaxs, dpi:pineapple.dpi(), time:time, network:pineapple.network() };
+            var data = handleNumber({ ajaxs:pineapple.ajaxs, dpi:pineapple.dpi(), time:time, network:pineapple.network() });
             console.log("data", data);
 			pineapple.send(data);
 		}, 500);
@@ -459,7 +482,7 @@
 	pineapple.dpi = function() {
 		return {width:window.screen.width, height:window.screen.height};
 	};
-	
+
 	/**
 	 * 组装变量
 	 * https://github.com/appsignal/appsignal-frontend-monitoring

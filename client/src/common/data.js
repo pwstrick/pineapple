@@ -72,4 +72,8 @@ export default {
   queryTime(param) {
     return this.get(hosts.server[mode], '/monitor/queryTime', param);
   },
+  // 查询性能指标列表
+  queryTimeList(param) {
+    return this.get(hosts.server[mode], '/monitor/queryTimeList', param);
+  },
 };

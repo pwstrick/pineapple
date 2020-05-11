@@ -50,4 +50,7 @@ export default {
   dateToTimestamp(date) {
     return +new Date(date);
   },
+  getPaginationOffset(page, number) {
+    return (page - 1) * number;
+  },
 };

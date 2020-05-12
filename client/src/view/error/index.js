@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Tabs, Table,
+  Tabs, Table, Modal,
  } from 'antd';
- import { echartLine } from '../../component/Chart/index';
+ import { echartLine, echartPie } from '../../component/Chart/index';
  import Filter from '../../component/Filter/filter';
  import data from '../../common/data';
  import localUtils from '../../common/utils';
@@ -13,6 +13,24 @@ class Error extends React.Component {
   static submit1(filter) {
     data.queryError(filter).then((json) => {
       echartLine({ id: 'chart', data: json.data, unit: '个' });
+    });
+  }
+
+  static submit3(filter) {
+    data.queryErrorBrowser(filter).then((json) => {
+      echartPie({
+        id: 'pie',
+        data: json.data,
+        click: (param) => {
+          data.queryErrorBrowserVersion({ ...filter, name: param.data.name }).then((version) => {
+            // console.log(versions);
+            Modal.info({
+              title: '浏览器版本',
+              content: version.data.map((item) => <p key={item}>{item}</p>),
+            });
+          });
+        },
+      });
     });
   }
 
@@ -93,11 +111,14 @@ class Error extends React.Component {
           <TabPane tab="折线图" key="1">
             <Filter submit={Error.submit1} isShowTime isError />
             <div id="chart" className="echart-line" />
-            {/* <div id="pie" className="echart-line" /> */}
           </TabPane>
           <TabPane tab="列表" key="2">
             <Filter submit={this.submit2} isShowTime={false} isError />
             <Table dataSource={list} columns={this.columns} pagination={pagination} />
+          </TabPane>
+          <TabPane tab="饼图" key="3">
+            <Filter submit={Error.submit3} isShowTime={false} isError />
+            <div id="pie" className="echart-pie" />
           </TabPane>
         </Tabs>
       </div>

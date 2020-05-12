@@ -57,6 +57,18 @@ class Mongodb {
             })
         });
     }
+    //读取唯一字段
+    distinct (field, conditions={}) {
+        return new Promise((resolve, reject) => {
+            this.model.distinct(field, conditions).exec((err, rows) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve(rows);
+            })
+        });
+    }
     //计算平均值
     avg (field, group, conditions={}, order={}) {
         return new Promise((resolve, reject) => {
@@ -74,13 +86,16 @@ class Mongodb {
         });
     }
     //计算相加
-    sum (field, group, conditions={}, order={}) {
+    sum (field, group, conditions={}, order=null) {
+        const arr = [
+            { $match: conditions },
+            { $group: { _id: group,  [field.name]: {$sum: field.sum} } },
+        ];
+        if(order) {
+            arr.push({ $sort: order })
+        }
         return new Promise((resolve, reject) => {
-            this.model.aggregate([
-                { $match: conditions },
-                { $group: { _id: group,  [field.name]: {$sum: field.sum} } },
-                { $sort: order }
-            ]).exec((err, rows) => {
+            this.model.aggregate(arr).exec((err, rows) => {
                 if(err) {
                     reject(err);
                     return;

@@ -9,7 +9,7 @@ class errorController extends baseController {
         type = +type;
         await errorModel.queryError({time, date, token, type}).then(rows => {
             // this.cacaulate(time, rows, field);
-            console.log(rows)
+            // console.log(rows)
             ctx.body = this.setJson({data: this.cacaulateXY(rows, time, 'sum')});
         });
     }
@@ -33,6 +33,25 @@ class errorController extends baseController {
                 };
             });
             ctx.body = this.setJson({data: {list, count} });
+        });
+    }
+    async queryErrorBrowser(ctx) {
+        let { date, type, token } = ctx.query;
+        date = date.split(",");
+        type = +type;
+        // console.log({time, date, token, type})
+        await errorModel.queryErrorBrowser({ date, token, type}).then(rows => {
+            // console.log(rows)
+            ctx.body = this.setJson({data: this.cacaulatePie(rows, 'sum')});
+        });
+    }
+    async queryErrorBrowserVersion(ctx) {
+        let { date, type, token, name } = ctx.query;
+        date = date.split(",");
+        type = +type;
+        await errorModel.queryErrorBrowserVersion({ date, token, type, name}).then(rows => {
+            // console.log(rows)
+            ctx.body = this.setJson({data: rows});
         });
     }
 }

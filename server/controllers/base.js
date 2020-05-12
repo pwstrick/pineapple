@@ -37,6 +37,12 @@ class baseController {
         });
         return {x, y};
     }
+    //计算饼图数据
+    cacaulatePie(rows, field) {
+        return rows.map( value => {
+            return {name: value._id, value: value[field]};
+        });
+    }
 }
 
 module.exports = baseController;

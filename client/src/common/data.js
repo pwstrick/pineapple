@@ -84,4 +84,12 @@ export default {
   queryErrorList(param) {
     return this.get(hosts.server[mode], '/error/queryErrorList', param);
   },
+  // 查询错误的浏览器
+  queryErrorBrowser(param) {
+    return this.get(hosts.server[mode], '/error/queryErrorBrowser', param);
+  },
+  // 查询错误的浏览器版本
+  queryErrorBrowserVersion(param) {
+    return this.get(hosts.server[mode], '/error/queryErrorBrowserVersion', param);
+  },
 };

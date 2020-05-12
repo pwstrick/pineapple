@@ -10,6 +10,11 @@ router.get('/queryError', async (ctx, next) => {
 router.get('/queryErrorList', async (ctx, next) => {
     await ctr.queryErrorList(ctx);
 });
-
+router.get('/queryErrorBrowser', async (ctx, next) => {
+    await ctr.queryErrorBrowser(ctx);
+});
+router.get('/queryErrorBrowserVersion', async (ctx, next) => {
+    await ctr.queryErrorBrowserVersion(ctx);
+});
 
 module.exports = router

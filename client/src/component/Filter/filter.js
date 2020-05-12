@@ -16,8 +16,8 @@ class Filter extends React.Component {
         type: '',
         field: '',
         token: '',
-        isMonitor: props.isMonitor,
-        isError: props.isError,
+        // isMonitor: props.isMonitor,
+        // isError: props.isError,
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.changeDate = this.changeDate.bind(this);
@@ -29,8 +29,9 @@ class Filter extends React.Component {
 
   onSubmit() {
     const {
-        date, field, token, isMonitor, isError, type,
+        date, field, token, type,
     } = this.state;
+    const { isMonitor, isError, submit } = this.props;
     if (token.length === 0) {
       Modal.error({ content: '请选择项目' });
       return;
@@ -47,7 +48,6 @@ class Filter extends React.Component {
       Modal.error({ content: '请选择日期' });
       return;
     }
-    const { submit } = this.props;
     submit(this.state);
   }
 
@@ -74,8 +74,7 @@ class Filter extends React.Component {
   render() {
     const { RangePicker } = DatePicker;
     const { Option } = Select;
-    const { isShowTime } = this.props;
-    const { isMonitor, isError } = this.state;
+    const { isShowTime, isMonitor, isError } = this.props;
 
     let SelectTime = '';
     if (isShowTime) {

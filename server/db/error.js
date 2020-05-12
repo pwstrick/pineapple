@@ -90,6 +90,24 @@ class Mongodb {
         };
         return myModel.count(conditions);
       }
+      queryErrorBrowser({date, token, type}) {
+        const conditions = {
+          token,
+          created: { $gte: date[0], $lte: date[1] },
+          type
+        };
+        const group = '$agent.browser.name';
+        return myModel.sum({name: "sum", sum: 1}, group, conditions);
+      }
+      queryErrorBrowserVersion({date, token, type, name}) {
+        const conditions = {
+          token,
+          created: { $gte: date[0], $lte: date[1] },
+          type,
+          'agent.browser.name': name
+        };
+        return myModel.distinct('agent.browser.version', conditions);
+      }
 }
 module.exports = new Mongodb();
 

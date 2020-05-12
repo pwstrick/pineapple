@@ -30,18 +30,21 @@ export function echartLine(props) {
 }
 
 export function echartPie(props) {
+    const { data, click } = props;
     const option = {
         tooltip: {
             trigger: 'item',
-            formatter: '{a} <br/>{b} : {c} ({d}%)',
+            // formatter: '{a} <br/>{b} : {c} ({d}%)',
+            formatter: '{b} : {c} ({d}%)',
         },
         series: [
             {
-                name: '姓名',
+                // name: '姓名',
                 type: 'pie',
                 radius: '60%',
                 center: ['50%', '50%'],
-                data: [{ name: '任凤元何·戴沈', value: 54037 }, { name: '姜常', value: 52981 }, { name: '滕齐·凤谢', value: 63117 }, { name: '罗季金', value: 84975 }],
+                // data: [{ name: '任凤元何·戴沈', value: 54037 }, { name: '姜常', value: 52981 }, { name: '滕齐·凤谢', value: 63117 }, { name: '罗季金', value: 84975 }],
+                data,
                 emphasis: {
                     itemStyle: {
                         shadowBlur: 10,
@@ -54,4 +57,5 @@ export function echartPie(props) {
     };
     const myChart = echarts.init(document.getElementById(props.id));
     myChart.setOption(option);
+    if (click) myChart.on('click', click);
 }

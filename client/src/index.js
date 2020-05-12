@@ -11,8 +11,8 @@ import 'antd/dist/antd.css';
 import './index.scss';
 
 // 渲染侧边栏和面包屑
-function structure() {
-  ReactDOM.render(<Breadcrumb />, document.getElementById('breadcrumb'));
+function structure(paths) {
+  ReactDOM.render(<Breadcrumb paths={paths} />, document.getElementById('breadcrumb'));
   ReactDOM.render(<Sidebar />, document.getElementById('sidebar'));
 }
 function init() {

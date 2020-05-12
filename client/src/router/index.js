@@ -12,6 +12,14 @@ import {
 // 历史对象
 export const history = createHashHistory();
 
+function bread(pathname, pageObj) {
+  return [{
+    name: pageObj.title,
+    href: pathname,
+    className: 'current',
+  }];
+}
+
 // 路由
 function App(props) {
   const [Page, setPage] = useState(null);
@@ -39,7 +47,7 @@ function App(props) {
     const pageObj = router[pathname] || router['/'];
     const moudle = await import(`../${pageObj.url}`);
     const View = moudle.default;
-    props.callback(); // 刷新侧边栏和面包屑
+    props.callback(bread(pathname, pageObj)); // 刷新侧边栏和面包屑
     setPage(<View {...props} />);
     setTitle(pageObj.title);
   }

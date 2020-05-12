@@ -14,3 +14,7 @@
 下面是创建项目的界面。
 
 ![创建项目](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/1.png)
+
+* [系统的前端说明](https://github.com/pwstrick/pineapple/tree/master/client)
+* [系统的SDK说明](https://github.com/pwstrick/pineapple/tree/master/sdk)
+* [系统的后端说明](https://github.com/pwstrick/pineapple/tree/master/server)

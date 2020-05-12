@@ -3,7 +3,7 @@ import {
   Tabs, Table,
  } from 'antd';
  import { echartLine } from '../../component/Chart/index';
- import Filter from './filter';
+ import Filter from '../../component/Filter/filter';
  import data from '../../common/data';
  import localUtils from '../../common/utils';
  import { PAGINATION_NUM } from '../../common/constants';
@@ -91,12 +91,12 @@ class Error extends React.Component {
       <div className="card-container">
         <Tabs type="card">
           <TabPane tab="折线图" key="1">
-            <Filter submit={Error.submit1} isShowTime />
+            <Filter submit={Error.submit1} isShowTime isError />
             <div id="chart" className="echart-line" />
             {/* <div id="pie" className="echart-line" /> */}
           </TabPane>
           <TabPane tab="列表" key="2">
-            <Filter submit={this.submit2} isShowTime={false} />
+            <Filter submit={this.submit2} isShowTime={false} isError />
             <Table dataSource={list} columns={this.columns} pagination={pagination} />
           </TabPane>
         </Tabs>

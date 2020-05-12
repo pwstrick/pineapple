@@ -12,4 +12,5 @@
 ```
 
 下面是创建项目的界面。
+
 ![创建项目](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/1.png)

@@ -3,7 +3,7 @@
 后台的界面结构采用了之前封装过的[Matrix](https://github.com/pwstrick/grape-skin)，组件库使用了目前流行的[Ant Design](https://ant.design/components/button-cn/)。
 
 ### 1）项目管理
-首先建立一个项目，然后才是分析该项目的性能和错误。
+首先建立一个项目，然后才能分析该项目的性能和错误。
 
 ![创建项目](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/1.png)
 

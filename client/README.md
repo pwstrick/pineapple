@@ -32,3 +32,5 @@
 第三个是饼图，饼图主要体现的是发生错误的浏览器分布情况，点击某一块可查看浏览器的具体版本。
 
 ![浏览器分布](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/7.png)
+
+![版本](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/8.png)

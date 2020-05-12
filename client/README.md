@@ -20,7 +20,7 @@
 
 ![性能列表](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/4.png)
 
-点击ajax那一列，可弹出具体的异步请求信息。
+点击异步请求那一列的某个单元格，可弹出具体的请求信息。
 
 ![ajax信息](https://github.com/pwstrick/pineapple/blob/master/client/public/img/ui/v1.0/5.png)
 

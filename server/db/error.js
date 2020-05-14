@@ -30,7 +30,8 @@ const myModel = new model('error', {
             architecture: { type: String, default: undefined }
         }
     },
-    url: String
+    url: String,
+    ip: String
 });
 
 class Mongodb {

@@ -66,7 +66,8 @@ const myModel = new model('monitor', {
           architecture: { type: String, default: undefined }
       }
     },
-    url: String
+    url: String,
+    ip: String
 });
 
 class Mongodb {

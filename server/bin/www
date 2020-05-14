@@ -27,7 +27,7 @@ var server = http.createServer(app.callback());
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, '0.0.0.0');   //'0.0.0.0'为了只读取iPV4地址
 server.on('error', onError);
 server.on('listening', onListening);
 

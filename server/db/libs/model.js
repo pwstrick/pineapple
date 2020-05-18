@@ -48,7 +48,7 @@ class Mongodb {
     //读取记录数量
     count (conditions={}) {
         return new Promise((resolve, reject) => {
-            this.model.count(conditions).exec((err, number) => {
+            this.model.countDocuments(conditions).exec((err, number) => {
                 if(err) {
                     reject(err);
                     return;
